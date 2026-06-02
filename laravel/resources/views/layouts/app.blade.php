@@ -19,9 +19,9 @@
 
         {{-- Tengah: Menu --}}
         <div class="flex gap-20">
-            <a href="#profil" class="hover:text-blue-600 transition">Profil</a>
-            <a href="#wisata" class="hover:text-blue-600 transition">Wisata</a>
-            <a href="#galeri" class="hover:text-blue-600 transition">Galeri</a>
+            <a href="{{ url('/#profil') }}" class="hover:text-blue-600 transition">Profil</a>
+            <a href="{{ url('/#wisata') }}" class="hover:text-blue-600 transition">Wisata</a>
+            <a href="{{ url('/#galeri') }}" class="hover:text-blue-600 transition">Galeri</a>
         </div>
 
         {{-- Kanan: Pesan Tiket --}}
