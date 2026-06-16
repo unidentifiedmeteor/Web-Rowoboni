@@ -1,12 +1,13 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use App\Models\Galeri;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DestinationController;
 use App\Models\Destination;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-use App\Models\Galeri;
+
 
 // Home — kirim semua destinasi ke view
 Route::get('/', function () {
@@ -187,6 +188,7 @@ Route::get('/admin/wisata/delete/{id}', function ($id) {
 
     return redirect('/admin/wisata');
 });
+
 Route::get('/admin/galeri', function () {
 
     if (!session()->has('admin_id')) {
@@ -238,3 +240,7 @@ Route::get('/admin/galeri/delete/{id}', function ($id) {
 
     return redirect('/admin/galeri');
 });
+
+
+
+
