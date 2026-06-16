@@ -1,0 +1,177 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI;
+}
+
+body{
+background:#f4f7fb;
+}
+
+header{
+background:white;
+padding:20px 50px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+.logo{
+font-size:24px;
+font-weight:bold;
+color:#2e8b57;
+}
+
+nav{
+display:flex;
+gap:20px;
+}
+
+nav a{
+text-decoration:none;
+color:#333;
+font-weight:500;
+}
+
+.container{
+padding:40px;
+}
+
+.upload-card{
+background:white;
+padding:25px;
+border-radius:15px;
+box-shadow:0 3px 10px rgba(0,0,0,.08);
+margin-bottom:40px;
+}
+
+.upload-card form{
+display:flex;
+flex-direction:column;
+align-items:flex-start;
+gap:15px;
+}
+
+.upload-card input{
+padding:10px;
+}
+
+.upload-card button{
+background:#2e8b57;
+color:white;
+border:none;
+padding:12px 20px;
+border-radius:10px;
+cursor:pointer;
+position:relative;
+z-index:10;
+}
+
+.title{
+margin-bottom:20px;
+}
+
+.gallery-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+gap:25px;
+}
+
+.gallery-card{
+background:white;
+border-radius:15px;
+overflow:hidden;
+box-shadow:0 3px 10px rgba(0,0,0,.08);
+}
+
+.gallery-card img{
+width:100%;
+height:220px;
+object-fit:cover;
+}
+
+.gallery-action{
+padding:15px;
+}
+
+.hapus{
+display:block;
+background:#f44336;
+color:white;
+text-align:center;
+padding:10px;
+border-radius:8px;
+text-decoration:none;
+font-weight:600;
+}
+
+.preview-box{
+margin-bottom:20px;
+}
+
+.preview-box img{
+width:100%;
+max-width:600px;
+height:350px;
+object-fit:cover;
+border-radius:20px;
+box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+.upload-btn{
+    display:inline-block;
+    background:#2e8b57;
+    color:white;
+    padding:12px 20px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:600;
+    transition:.3s;
+}
+
+.upload-btn:hover{
+    transform:translateY(-2px);
+}
+
+#fileName{
+    margin-top:10px;
+    color:#666;
+    font-size:14px;
+}
+
+.drop-area{
+    width:100%;
+    max-width:600px;
+    height:350px;
+
+    border:3px dashed #2e8b57;
+    border-radius:20px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+
+    background:#f8fff9;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.drop-area:hover{
+    background:#eefcf1;
+}
+
+.drop-area.dragover{
+    background:#dff7e5;
+}
+
+.drop-area img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:20px;
+}
