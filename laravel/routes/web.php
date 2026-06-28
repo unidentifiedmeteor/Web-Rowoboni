@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DestinationController;
 use App\Models\Destination;
 use Illuminate\Http\Request;
+use App\Models\Booking;
 
 
 // Home — kirim semua destinasi ke view
@@ -28,6 +29,46 @@ Route::get('/booking/create', function (\Illuminate\Http\Request $request) { // 
     // Membuka form booking sambil mengirimkan data destinasinya
     return view('booking', compact('destination'));
 })->name('booking.create');
+
+Route::post('/booking/store', function (Illuminate\Http\Request $request) {
+
+    $request->validate([
+        'destination_id' => 'required',
+        'nama' => 'required',
+        'email' => 'required|email',
+        'no_hp' => 'required',
+        'jumlah_tiket' => 'required|integer|min:1',
+        'tanggal_kunjungan' => 'required|date'
+    ]);
+
+    $wisata = App\Models\Destination::findOrFail(
+        $request->destination_id
+    );
+
+    Booking::create([
+
+        'destination_id' => $wisata->id,
+
+        'nama' => $request->nama,
+
+        'email' => $request->email,
+
+        'no_hp' => $request->no_hp,
+
+        'jumlah_tiket' => $request->jumlah_tiket,
+
+        'tanggal_kunjungan' => $request->tanggal_kunjungan,
+
+        'total_harga' => $wisata->price * $request->jumlah_tiket,
+
+        'status' => 'Pending'
+
+    ]);
+
+    return redirect('/')
+        ->with('success', 'Booking berhasil dibuat.');
+
+});
 
 Route::get('/admin/login', function () {
     return view('login');
@@ -62,7 +103,23 @@ Route::get('/admin/dashboard', function () {
         return redirect('/admin/login');
     }
 
-    return view('admin.dashboard');
+    $belumDicek = Booking::where('status', 'Pending')->count();
+
+    $terverifikasi = Booking::where('status', 'Paid')->count();
+
+    $totalPesanan = Booking::count();
+
+    $booking = Booking::with('destination')
+        ->latest()
+        ->get();
+
+    return view('admin.dashboard', compact(
+        'belumDicek',
+        'terverifikasi',
+        'totalPesanan',
+        'booking'
+    ));
+
 });
 
 Route::get('/admin/logout', function () {

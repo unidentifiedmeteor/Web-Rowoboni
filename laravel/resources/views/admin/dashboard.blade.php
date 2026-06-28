@@ -35,17 +35,17 @@
 
         <div class="card warning">
             <h3>Belum Dicek</h3>
-            <span>1</span>
+            <span>{{ $belumDicek }}</span>
         </div>
 
         <div class="card success">
             <h3>Terverifikasi</h3>
-            <span>0</span>
+            <span>{{ $terverifikasi }}</span>
         </div>
 
         <div class="card info">
             <h3>Total Pesanan</h3>
-            <span>0</span>
+            <span>{{ $totalPesanan }}</span>
         </div>
 
     </div>
@@ -70,23 +70,61 @@
 
             <tbody>
 
-            <tr>
-                <td>Hermawan</td>
-                <td>09/06/2026</td>
-                <td>Embung Rowoboni</td>
-                <td>Rp120.000</td>
-                <td><a href="#">Lihat</a></td>
-                <td>
-                    <span class="status pending">
-                        Belum Dicek
-                    </span>
-                </td>
-                <td>
-                    <button class="btn-approve">
-                        Setujui
-                    </button>
-                </td>
-            </tr>
+            @foreach($booking as $item)
+
+<tr>
+
+    <td>{{ $item->nama }}</td>
+
+    <td>{{ $item->tanggal_kunjungan }}</td>
+
+    <td>{{ $item->destination->name }}</td>
+
+    <td>Rp {{ number_format($item->total_harga,0,',','.') }}</td>
+
+    <td>
+        Belum Ada
+    </td>
+
+    <td>
+
+        @if($item->status == 'Pending')
+
+            <span class="status pending">
+                Belum Dicek
+            </span>
+
+        @elseif($item->status == 'Paid')
+
+            <span class="status success">
+                Terverifikasi
+            </span>
+
+        @endif
+
+    </td>
+
+    <td>
+
+        @if($item->status == 'Pending')
+
+            <button class="btn-approve">
+
+                Setujui
+
+            </button>
+
+        @else
+
+            -
+
+        @endif
+
+    </td>
+
+</tr>
+
+@endforeach
 
             </tbody>
 

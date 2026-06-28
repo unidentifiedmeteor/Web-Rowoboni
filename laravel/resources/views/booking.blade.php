@@ -9,8 +9,17 @@
             Formulir Pemesanan Tiket
         </h2>
 
-        <form action="#" method="POST" enctype="multipart/form-data" class="space-y-5 text-sm text-gray-700">
-            @csrf
+        <form
+        action="/booking/store"
+        method="POST"
+        enctype="multipart/form-data"
+        class="space-y-5 text-sm text-gray-700">
+        @csrf
+
+        <input
+        type="hidden"
+        name="destination_id"
+        value="{{ $destination->id }}">
 
             <!-- Destinasi Wisata -->
             <div class="grid grid-cols-3 items-center">
@@ -30,7 +39,7 @@
                 <label class="font-medium text-blue-950">Nama lengkap</label>
                 <div class="col-span-2 flex items-center gap-2">
                     <span class="hidden md:inline">:</span>
-                    <input type="text" name="name" required class="w-full bg-gray-100 border border-gray-200 rounded-lg p-2 focus:outline-none focus:border-blue-600">
+                    <input type="text" name="nama" required class="w-full bg-gray-100 border border-gray-200 rounded-lg p-2 focus:outline-none focus:border-blue-600">
                 </div>
             </div>
 
@@ -43,12 +52,28 @@
                 </div>
             </div>
 
+            <div class="grid grid-cols-3 items-center">
+    <label class="font-medium text-blue-950">Nomor HP</label>
+
+    <div class="col-span-2 flex items-center gap-2">
+
+        <span class="hidden md:inline">:</span>
+
+        <input
+        type="text"
+        name="no_hp"
+        required
+        class="w-full bg-gray-100 border border-gray-200 rounded-lg p-2 focus:outline-none focus:border-blue-600">
+
+    </div>
+</div>
+
             <!-- Tanggal -->
             <div class="grid grid-cols-3 items-center">
                 <label class="font-medium text-blue-950">Tanggal</label>
                 <div class="col-span-2 flex items-center gap-2">
                     <span class="hidden md:inline">:</span>
-                    <input type="date" name="date" required class="w-full bg-gray-100 border border-gray-200 rounded-lg p-2 focus:outline-none focus:border-blue-600">
+                    <input type="date" name="tanggal_kunjungan" required class="w-full bg-gray-100 border border-gray-200 rounded-lg p-2 focus:outline-none focus:border-blue-600">
                 </div>
             </div>
 
@@ -59,7 +84,7 @@
                     <span class="hidden md:inline">:</span>
                     <div class="flex items-center gap-1">
                         <button type="button" id="btn-minus" class="w-8 h-8 bg-gray-200 hover:bg-gray-300 font-bold rounded-l-md flex items-center justify-center transition">-</button>
-                        <input type="number" name="num_people" id="num-people" value="1" min="1" readonly class="w-12 h-8 text-center bg-gray-50 border-y border-gray-200 font-semibold focus:outline-none">
+                        <input type="number" name="jumlah_tiket" id="num-people" value="1" min="1" readonly class="w-12 h-8 text-center bg-gray-50 border-y border-gray-200 font-semibold focus:outline-none">
                         <button type="button" id="btn-plus" class="w-8 h-8 bg-gray-200 hover:bg-gray-300 font-bold rounded-r-md flex items-center justify-center transition">+</button>
                     </div>
                 </div>
@@ -92,12 +117,12 @@
             <!-- Upload Bukti Transfer -->
             <div class="space-y-2">
                 <label class="block font-medium text-blue-950">Upload foto/screenshot bukti transfer</label>
-                <input type="file" name="payment_proof" accept="image/*" required class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer">
+                <input type="file" name="payment_proof" accept="image/*"  class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer">
             </div>
 
             <!-- Tombol Kirim -->
             <div class="flex justify-end pt-4">
-                <button type="button" class="bg-gray-800 text-white px-8 py-2 rounded-lg hover:bg-blue-900 transition font-medium tracking-wide">
+                <button type="submit" class="bg-gray-800 text-white px-8 py-2 rounded-lg hover:bg-blue-900 transition font-medium tracking-wide">
                     Kirim
                 </button>
             </div>
