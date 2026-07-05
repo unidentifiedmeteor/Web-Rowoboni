@@ -1,19 +1,40 @@
 @extends('layouts.app')
 
 @section('content')
-<main class="py-12 px-6 max-w-2xl mx-auto">
-    <div class="bg-white border border-blue-100 rounded-2xl shadow-sm p-8">
-        
+<div id="booking-form-page">
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+    #booking-form-page {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    #booking-form-page .font-display {
+        font-family: 'Fraunces', serif;
+    }
+</style>
+
+<main class="py-16 px-6 max-w-2xl mx-auto bg-[#F0F6F4]">
+    <div class="bg-white border border-[#E3EEEC] rounded-3xl shadow-xl shadow-[#0D3B4F]/10 p-8 md:p-10">
+
         <!-- Judul Form -->
-        <h2 class="text-xl font-bold text-blue-900 text-center mb-8 uppercase tracking-wide">
-            Formulir Pemesanan Tiket
-        </h2>
+        <div class="text-center mb-10">
+            <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-[#1C6E8C] bg-[#F0F6F4] border border-[#CFE3DF] px-3 py-1 rounded-full uppercase tracking-wide mb-4">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"/>
+                    <circle cx="12" cy="12" r="8" stroke-opacity="0.5"/>
+                </svg>
+                Booking
+            </span>
+            <h2 class="font-display text-2xl md:text-3xl font-semibold text-[#0D3B4F]">
+                Formulir Pemesanan Tiket
+            </h2>
+        </div>
 
         <form
         action="/booking/store"
         method="POST"
         enctype="multipart/form-data"
-        class="space-y-5 text-sm text-gray-700">
+        class="space-y-5 text-sm text-[#3B4E52]">
         @csrf
 
         <input
@@ -23,10 +44,10 @@
 
             <!-- Destinasi Wisata -->
             <div class="grid grid-cols-3 items-center">
-                <label class="font-medium text-blue-950">Destinasi Wisata</label>
+                <label class="font-semibold text-[#0D3B4F]">Destinasi Wisata</label>
                 <div class="col-span-2 flex items-center gap-2">
-                    <span class="hidden md:inline">:</span>
-                    <select name="destination_id" id="destination-select" class="w-full bg-gray-100 border border-gray-200 rounded-lg p-2 focus:outline-none focus:border-blue-600">
+                    <span class="hidden md:inline text-[#8B9C9A]">:</span>
+                    <select name="destination_id" id="destination-select" class="w-full bg-[#F7FAF9] border border-[#E3EEEC] rounded-lg p-2.5 focus:outline-none focus:border-[#1C6E8C] transition">
                         <option value="{{ $destination->id ?? '' }}" data-price="{{ $destination->price ?? 0 }}">
                             {{ $destination->name ?? 'Dermaga Asri Rowoboni' }}
                         </option>
@@ -36,99 +57,100 @@
 
             <!-- Nama Lengkap -->
             <div class="grid grid-cols-3 items-center">
-                <label class="font-medium text-blue-950">Nama lengkap</label>
+                <label class="font-semibold text-[#0D3B4F]">Nama lengkap</label>
                 <div class="col-span-2 flex items-center gap-2">
-                    <span class="hidden md:inline">:</span>
-                    <input type="text" name="nama" required class="w-full bg-gray-100 border border-gray-200 rounded-lg p-2 focus:outline-none focus:border-blue-600">
+                    <span class="hidden md:inline text-[#8B9C9A]">:</span>
+                    <input type="text" name="nama" required class="w-full bg-[#F7FAF9] border border-[#E3EEEC] rounded-lg p-2.5 focus:outline-none focus:border-[#1C6E8C] transition">
                 </div>
             </div>
 
             <!-- Alamat Email -->
             <div class="grid grid-cols-3 items-center">
-                <label class="font-medium text-blue-950">Alamat email</label>
+                <label class="font-semibold text-[#0D3B4F]">Alamat email</label>
                 <div class="col-span-2 flex items-center gap-2">
-                    <span class="hidden md:inline">:</span>
-                    <input type="email" name="email" required class="w-full bg-gray-100 border border-gray-200 rounded-lg p-2 focus:outline-none focus:border-blue-600">
+                    <span class="hidden md:inline text-[#8B9C9A]">:</span>
+                    <input type="email" name="email" required class="w-full bg-[#F7FAF9] border border-[#E3EEEC] rounded-lg p-2.5 focus:outline-none focus:border-[#1C6E8C] transition">
                 </div>
             </div>
 
+            <!-- Nomor HP -->
             <div class="grid grid-cols-3 items-center">
-    <label class="font-medium text-blue-950">Nomor HP</label>
-
-    <div class="col-span-2 flex items-center gap-2">
-
-        <span class="hidden md:inline">:</span>
-
-        <input
-        type="text"
-        name="no_hp"
-        required
-        class="w-full bg-gray-100 border border-gray-200 rounded-lg p-2 focus:outline-none focus:border-blue-600">
-
-    </div>
-</div>
+                <label class="font-semibold text-[#0D3B4F]">Nomor HP</label>
+                <div class="col-span-2 flex items-center gap-2">
+                    <span class="hidden md:inline text-[#8B9C9A]">:</span>
+                    <input
+                    type="text"
+                    name="no_hp"
+                    required
+                    class="w-full bg-[#F7FAF9] border border-[#E3EEEC] rounded-lg p-2.5 focus:outline-none focus:border-[#1C6E8C] transition">
+                </div>
+            </div>
 
             <!-- Tanggal -->
             <div class="grid grid-cols-3 items-center">
-                <label class="font-medium text-blue-950">Tanggal</label>
+                <label class="font-semibold text-[#0D3B4F]">Tanggal</label>
                 <div class="col-span-2 flex items-center gap-2">
-                    <span class="hidden md:inline">:</span>
-                    <input type="date" name="tanggal_kunjungan" required class="w-full bg-gray-100 border border-gray-200 rounded-lg p-2 focus:outline-none focus:border-blue-600">
+                    <span class="hidden md:inline text-[#8B9C9A]">:</span>
+                    <input type="date" name="tanggal_kunjungan" required class="w-full bg-[#F7FAF9] border border-[#E3EEEC] rounded-lg p-2.5 focus:outline-none focus:border-[#1C6E8C] transition">
                 </div>
             </div>
 
             <!-- Jumlah Tiket dengan tombol + dan - -->
             <div class="grid grid-cols-3 items-center">
-                <label class="font-medium text-blue-950">Jumlah tiket</label>
+                <label class="font-semibold text-[#0D3B4F]">Jumlah tiket</label>
                 <div class="col-span-2 flex items-center gap-2">
-                    <span class="hidden md:inline">:</span>
-                    <div class="flex items-center gap-1">
-                        <button type="button" id="btn-minus" class="w-8 h-8 bg-gray-200 hover:bg-gray-300 font-bold rounded-l-md flex items-center justify-center transition">-</button>
-                        <input type="number" name="jumlah_tiket" id="num-people" value="1" min="1" readonly class="w-12 h-8 text-center bg-gray-50 border-y border-gray-200 font-semibold focus:outline-none">
-                        <button type="button" id="btn-plus" class="w-8 h-8 bg-gray-200 hover:bg-gray-300 font-bold rounded-r-md flex items-center justify-center transition">+</button>
+                    <span class="hidden md:inline text-[#8B9C9A]">:</span>
+                    <div class="flex items-center">
+                        <button type="button" id="btn-minus" class="w-9 h-9 bg-[#EAF3F1] hover:bg-[#DCEAE7] text-[#0D3B4F] font-bold rounded-l-full flex items-center justify-center transition">-</button>
+                        <input type="number" name="jumlah_tiket" id="num-people" value="1" min="1" readonly class="w-12 h-9 text-center bg-[#F7FAF9] border-y border-[#E3EEEC] font-semibold text-[#0D3B4F] focus:outline-none">
+                        <button type="button" id="btn-plus" class="w-9 h-9 bg-[#EAF3F1] hover:bg-[#DCEAE7] text-[#0D3B4F] font-bold rounded-r-full flex items-center justify-center transition">+</button>
                     </div>
                 </div>
             </div>
 
             <!-- Total yang Harus Dibayar (Dinamis Otomatis) -->
-            <div class="pt-4 border-t border-dashed border-gray-200">
-                <p class="font-bold text-blue-900">
-                    Total yang harus dibayar : <span class="text-green-600 text-lg" id="total-display">Rp {{ number_format($destination->price ?? 10000, 0, ',', '.') }}</span>
+            <div class="pt-4 border-t border-dashed border-[#E3EEEC]">
+                <p class="font-semibold text-[#0D3B4F]">
+                    Total yang harus dibayar : <span class="text-[#3F7D52] text-lg font-bold font-display" id="total-display">Rp {{ number_format($destination->price ?? 10000, 0, ',', '.') }}</span>
                 </p>
             </div>
 
             <!-- Informasi Rekening Bank -->
-            <div class="p-4 bg-gray-50 rounded-xl space-y-2 border border-gray-100">
-                <p class="text-xs text-gray-500 italic mb-1">Silahkan transfer tepat sesuai nominal ke rekening resmi berikut:</p>
+            <div class="p-4 bg-[#F0F6F4] rounded-2xl space-y-2 border border-[#E3EEEC]">
+                <p class="text-xs text-[#6B7F80] italic mb-1">Silahkan transfer tepat sesuai nominal ke rekening resmi berikut:</p>
                 <div class="grid grid-cols-3">
-                    <span class="font-medium">Bank</span>
-                    <span class="col-span-2">: Bank gtw</span>
+                    <span class="font-semibold text-[#0D3B4F]">Bank</span>
+                    <span class="col-span-2 text-[#3B4E52]">: Bank gtw</span>
                 </div>
                 <div class="grid grid-cols-3">
-                    <span class="font-medium">Nomor Rekening</span>
-                    <span class="col-span-2">: 1231313123</span>
+                    <span class="font-semibold text-[#0D3B4F]">Nomor Rekening</span>
+                    <span class="col-span-2 text-[#3B4E52]">: 1231313123</span>
                 </div>
                 <div class="grid grid-cols-3">
-                    <span class="font-medium">Atas Nama</span>
-                    <span class="col-span-2">: Kas Desa Wisata Rowoboni</span>
+                    <span class="font-semibold text-[#0D3B4F]">Atas Nama</span>
+                    <span class="col-span-2 text-[#3B4E52]">: Kas Desa Wisata Rowoboni</span>
                 </div>
             </div>
 
             <!-- Upload Bukti Transfer -->
             <div class="space-y-2">
-                <label class="block font-medium text-blue-950">Upload foto/screenshot bukti transfer</label>
-                <input type="file" name="payment_proof" accept="image/*"  class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer">
+                <label class="block font-semibold text-[#0D3B4F]">Upload foto/screenshot bukti transfer</label>
+                <input type="file" name="payment_proof" accept="image/*" class="w-full text-sm text-[#6B7F80] file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-[#E7F1EF] file:text-[#1C6E8C] hover:file:bg-[#D8EAE7] cursor-pointer transition">
             </div>
 
             <!-- Tombol Kirim -->
             <div class="flex justify-end pt-4">
-                <button type="submit" class="bg-gray-800 text-white px-8 py-2 rounded-lg hover:bg-blue-900 transition font-medium tracking-wide">
+                <button type="submit" class="group/btn inline-flex items-center gap-2 bg-[#1C6E8C] text-white px-8 py-3 rounded-full hover:bg-[#0D3B4F] transition-colors duration-300 font-semibold tracking-wide">
                     Kirim
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="transition-transform duration-300 group-hover/btn:translate-x-1">
+                        <path d="M5 12h14M13 6l6 6-6 6"/>
+                    </svg>
                 </button>
             </div>
         </form>
     </div>
 </main>
+</div>
 
 <!-- SCRIPT LIVE TOTAL HARGA & TOMBOL INCREMENT -->
 <script>
