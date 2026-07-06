@@ -34,7 +34,7 @@ class Destination extends Model
     public function imageUrl(): string
     {
         if ($this->image) {
-            return asset('storage/' . $this->image);
+            return asset($this->image);;
         }
         return 'https://placehold.co/800x500/dbeafe/93c5fd?text=' . urlencode($this->name);
     }

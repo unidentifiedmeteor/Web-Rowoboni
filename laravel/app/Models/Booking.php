@@ -12,22 +12,30 @@ class Booking extends Model
 
     protected $fillable = [
 
-        'destination_id',
+    'destination_id',
 
-        'nama',
+    'nama',
 
-        'email',
+    'email',
 
-        'no_hp',
+    'no_hp',
 
-        'jumlah_tiket',
+    'jumlah_tiket',
 
-        'tanggal_kunjungan',
+    'tanggal_kunjungan',
 
-        'total_harga',
+    'total_harga',
 
-        'status'
-    ];
+    'status',
+
+    'ticket_code',
+
+    'verified_at',
+
+    'is_used',
+
+    'bukti_transfer',
+];
 
     public function destination()
     {

@@ -6,9 +6,10 @@
 <section id="profil" class="py-20 px-6">
     <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
         <div class="w-full md:w-2/5">
-            <img src="https://placehold.co/480x360/dbeafe/93c5fd?text=Foto+Desa"
-                 alt="Foto Desa Rowoboni"
-                 class="w-full rounded-2xl object-cover">
+            <img
+            src="{{ asset('images/profil_desa.jpg.jpeg') }}"
+            alt="Desa Wisata Rowoboni"
+            class="w-full h-full object-cover rounded-3xl">
         </div>
         <div class="w-full md:w-3/5">
             <span class="inline-block text-xs font-semibold text-blue-600 bg-blue-50 border border-blue-100 px-3 py-1 rounded-full mb-4 tracking-wide uppercase">
@@ -84,11 +85,12 @@
         <h2 class="text-3xl font-bold text-blue-900 text-center mb-2">Galeri</h2>
         <p class="text-center text-gray-400 text-sm mb-12">Sekilas keindahan Desa Rowoboni</p>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-            @forelse($galleries ?? [] as $foto)
+            @forelse($galeri as $foto)
             <div class="aspect-square overflow-hidden rounded-2xl">
-                <img src="{{ asset('storage/' . $foto->image) }}"
-                     alt="Galeri"
-                     class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                <img
+                src="{{ asset($foto->file_media) }}"
+                alt="Galeri"
+                class="w-full h-full object-cover hover:scale-105 transition duration-500">
             </div>
             @empty
             {{-- Placeholder sementara sebelum ada data galeri --}}
