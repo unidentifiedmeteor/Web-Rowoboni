@@ -115,29 +115,7 @@
                 </p>
             </div>
 
-            <!-- Informasi Rekening Bank -->
-            <div class="p-4 bg-[#F0F6F4] rounded-2xl space-y-2 border border-[#E3EEEC]">
-                <p class="text-xs text-[#6B7F80] italic mb-1">Silahkan transfer tepat sesuai nominal ke rekening resmi berikut:</p>
-                <div class="grid grid-cols-3">
-                    <span class="font-semibold text-[#0D3B4F]">Bank</span>
-                    <span class="col-span-2 text-[#3B4E52]">: Bank gtw</span>
-                </div>
-                <div class="grid grid-cols-3">
-                    <span class="font-semibold text-[#0D3B4F]">Nomor Rekening</span>
-                    <span class="col-span-2 text-[#3B4E52]">: 1231313123</span>
-                </div>
-                <div class="grid grid-cols-3">
-                    <span class="font-semibold text-[#0D3B4F]">Atas Nama</span>
-                    <span class="col-span-2 text-[#3B4E52]">: Kas Desa Wisata Rowoboni</span>
-                </div>
-            </div>
-
-            <!-- Upload Bukti Transfer -->
-            <div class="space-y-2">
-                <label class="block font-semibold text-[#0D3B4F]">Upload foto/screenshot bukti transfer</label>
-                <input type="file" name="payment_proof" accept="image/*" class="w-full text-sm text-[#6B7F80] file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-[#E7F1EF] file:text-[#1C6E8C] hover:file:bg-[#D8EAE7] cursor-pointer transition">
-            </div>
-
+            
             <!-- Tombol Kirim -->
             <div class="flex justify-end pt-4">
                 <button type="submit" class="group/btn inline-flex items-center gap-2 bg-[#1C6E8C] text-white px-8 py-3 rounded-full hover:bg-[#0D3B4F] transition-colors duration-300 font-semibold tracking-wide">

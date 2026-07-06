@@ -120,74 +120,86 @@
                     </div>
 
 
-                    {{-- EMAIL --}}
-                    <div>
+                  {{-- EMAIL --}}
+<div>
+    <label class="mb-2 block text-sm font-semibold text-slate-700">
+        Email
+    </label>
 
-                        <label class="mb-2 block text-sm font-semibold text-slate-700">
-                            Email
-                        </label>
-
-                        <input
-                            type="email"
-                            name="email"
-                            value="{{ old('email', $setting->email ?? '') }}"
-                            placeholder="rowoboni@example.com"
-                            class="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100">
-
-                    </div>
+    <input
+        type="email"
+        name="email"
+        value="{{ old('email', $setting->email ?? '') }}"
+        placeholder="rowoboni@example.com"
+        class="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100">
+</div>
 
 
-                    {{-- WHATSAPP --}}
-                    <div>
+{{-- WHATSAPP --}}
+<div>
+    <label class="mb-2 block text-sm font-semibold text-slate-700">
+        Nomor WhatsApp
+    </label>
 
-                        <label class="mb-2 block text-sm font-semibold text-slate-700">
-                            Nomor WhatsApp
-                        </label>
-
-                        <input
-                            type="text"
-                            name="whatsapp"
-                            value="{{ old('whatsapp', $setting->whatsapp ?? '') }}"
-                            placeholder="628123456789"
-                            class="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100">
-
-                    </div>
+    <input
+        type="text"
+        name="whatsapp"
+        value="{{ old('whatsapp', $setting->whatsapp ?? '') }}"
+        placeholder="628123456789"
+        class="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100">
+</div>
 
 
-                    {{-- ALAMAT --}}
-                    <div>
+{{-- INSTAGRAM --}}
+<div>
+    <label class="mb-2 block text-sm font-semibold text-slate-700">
+        Instagram
+    </label>
 
-                        <label class="mb-2 block text-sm font-semibold text-slate-700">
-                            Alamat
-                        </label>
-
-                        <textarea
-                            name="address"
-                            rows="4"
-                            placeholder="Alamat Desa Wisata Rowoboni"
-                            class="w-full resize-none rounded-xl border border-slate-200 px-4 py-3 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100">{{ old('address', $setting->address ?? '') }}</textarea>
-
-                    </div>
+    <input
+        type="text"
+        name="instagram"
+        value="{{ old('instagram', $setting->instagram ?? '') }}"
+        placeholder="@pemerintahdesarowoboni"
+        class="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100">
+</div>
 
 
-                    {{-- DESKRIPSI --}}
-                    <div>
+{{-- ALAMAT --}}
+<div>
+    <label class="mb-2 block text-sm font-semibold text-slate-700">
+        Alamat
+    </label>
 
-                        <label class="mb-2 block text-sm font-semibold text-slate-700">
-                            Deskripsi Singkat
-                        </label>
+    <textarea
+        name="address"
+        rows="4"
+        placeholder="Alamat Desa Wisata Rowoboni"
+        class="w-full resize-none rounded-xl border border-slate-200 px-4 py-3 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100">{{ old('address', $setting->address ?? '') }}</textarea>
+</div>
 
-                        <textarea
-                            name="description"
-                            rows="5"
-                            placeholder="Deskripsi singkat Desa Wisata Rowoboni..."
-                            class="w-full resize-none rounded-xl border border-slate-200 px-4 py-3 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100">{{ old('description', $setting->description ?? '') }}</textarea>
 
-                    </div>
+{{-- DESKRIPSI --}}
+<div>
+    <label class="mb-2 block text-sm font-semibold text-slate-700">
+        Deskripsi Singkat
+    </label>
+
+    <textarea
+        name="description"
+        rows="5"
+        placeholder="Deskripsi singkat Desa Wisata Rowoboni..."
+        class="w-full resize-none rounded-xl border border-slate-200 px-4 py-3 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100">{{ old('description', $setting->description ?? '') }}</textarea>
+</div>
+
+
+                
 
                 </div>
 
             </div>
+
+     
 
 
             {{-- PEMBAYARAN --}}

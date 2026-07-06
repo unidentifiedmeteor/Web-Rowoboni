@@ -15,5 +15,6 @@ class Setting extends Model
         'bank_name',
         'account_number',
         'account_name',
+        'instagram',
     ];
 }

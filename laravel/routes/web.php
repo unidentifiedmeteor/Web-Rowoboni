@@ -22,13 +22,15 @@ Route::get('/', function () {
 
     $destinations = Destination::all();
 
-    $galeri = Galeri::all();
+    $galeri = Galeri::latest('id_galeri')->get();
+
+    $setting = Setting::first();
 
     return view('home', compact(
         'destinations',
-        'galeri'
+        'galeri',
+        'setting'
     ));
-
 });
 
 // Detail destinasi
@@ -86,10 +88,48 @@ Route::post('/booking/store', function (Request $request) {
 
 Route::get('/booking/payment/{id}', function ($id) {
 
-    $booking = Booking::with('destination')
-        ->findOrFail($id);
+    $booking = Booking::findOrFail($id);
 
-    return view('payment', compact('booking'));
+    $setting = Setting::first();
+
+    return view('payment', compact(
+        'booking',
+        'setting'
+    ));
+
+});
+
+
+
+Route::post('/booking/payment/{id}', function (Request $request, $id) {
+
+    $request->validate([
+        'bukti_transfer' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+    ]);
+
+    $booking = Booking::findOrFail($id);
+
+    if ($request->hasFile('bukti_transfer')) {
+
+        $file = $request->file('bukti_transfer');
+
+        $namaFile = 'bukti-' . $booking->id_booking . '-' . time() . '.' . $file->getClientOriginalExtension();
+
+        $file->move(
+            public_path('images/bukti-transfer'),
+            $namaFile
+        );
+
+        $booking->bukti_transfer = 'images/bukti-transfer/' . $namaFile;
+
+        $booking->save();
+    }
+
+    return redirect('/')
+        ->with(
+            'success',
+            'Bukti pembayaran berhasil dikirim. Silakan tunggu proses verifikasi, tiket akan dikirim melalui email yang tertera.'
+        );
 
 });
 
@@ -139,10 +179,10 @@ Route::post('/booking/payment/{id}/upload', function (
 
 
     return redirect('/')
-        ->with(
-            'success',
-            'Bukti pembayaran berhasil dikirim. Silakan tunggu verifikasi admin.'
-        );
+    ->with(
+        'success',
+        'Bukti pembayaran berhasil dikirim. Silakan tunggu proses verifikasi, tiket akan dikirim melalui email yang tertera.'
+    );
 
 });
 
@@ -528,6 +568,7 @@ Route::post('/admin/settings/update', function (\Illuminate\Http\Request $reques
         'bank_name' => 'nullable|string|max:255',
         'account_number' => 'nullable|string|max:100',
         'account_name' => 'nullable|string|max:255',
+        'instagram' => 'nullable|string|max:255',
     ]);
 
     Setting::updateOrCreate(
@@ -541,6 +582,7 @@ Route::post('/admin/settings/update', function (\Illuminate\Http\Request $reques
             'bank_name' => $request->bank_name,
             'account_number' => $request->account_number,
             'account_name' => $request->account_name,
+            'instagram' => $request->instagram,
         ]
     );
 

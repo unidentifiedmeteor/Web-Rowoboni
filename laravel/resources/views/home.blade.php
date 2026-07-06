@@ -2,6 +2,158 @@
 
 @section('content')
 
+@if(session('success'))
+
+<div
+    id="successNotification"
+    class="fixed left-1/2 top-24 z-[9999] w-[90%] max-w-md
+           -translate-x-1/2 -translate-y-10 opacity-0
+           rounded-2xl border border-[#D3E6DA] bg-white p-5 shadow-xl
+           transition-all duration-500 ease-out">
+
+    <div class="flex items-start gap-4">
+
+        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#EAF3EC] text-[#3F7D52]">
+
+            <i class="fa-solid fa-circle-check text-xl"></i>
+
+        </div>
+
+        <div class="flex-1">
+
+            <h3 class="font-bold text-[#0D3B4F]">
+                Bukti Pembayaran Berhasil Dikirim
+            </h3>
+
+            <p class="mt-1 text-sm leading-relaxed text-[#5B7480]">
+                {{ session('success') }}
+            </p>
+
+        </div>
+
+        <button
+            type="button"
+            onclick="tutupNotifikasi()"
+            class="text-[#8B9C9A] transition hover:text-[#0D3B4F]">
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+    </div>
+
+
+    {{-- PROGRESS BAR --}}
+    <div class="absolute bottom-0 left-0 h-1 w-full overflow-hidden rounded-b-2xl">
+
+        <div
+            id="notificationProgress"
+            class="h-full w-full origin-left bg-[#3F7D52]">
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const notification = document.getElementById('successNotification');
+
+    const progress = document.getElementById('notificationProgress');
+
+
+    // ANIMASI MASUK
+    setTimeout(function () {
+
+        notification.classList.remove(
+            '-translate-y-10',
+            'opacity-0'
+        );
+
+        notification.classList.add(
+            'translate-y-0',
+            'opacity-100'
+        );
+
+    }, 100);
+
+
+    // ANIMASI PROGRESS BAR
+    progress.style.transition = 'transform 5s linear';
+
+    setTimeout(function () {
+
+        progress.style.transform = 'scaleX(0)';
+
+    }, 200);
+
+
+    // HILANG OTOMATIS SETELAH 5 DETIK
+    setTimeout(function () {
+
+        tutupNotifikasi();
+
+    }, 5200);
+
+});
+
+
+function tutupNotifikasi() {
+
+    const notification = document.getElementById('successNotification');
+
+    if (!notification) {
+        return;
+    }
+
+
+    // ANIMASI KELUAR
+    notification.classList.remove(
+        'translate-y-0',
+        'opacity-100'
+    );
+
+    notification.classList.add(
+        '-translate-y-10',
+        'opacity-0'
+    );
+
+
+    // HAPUS SETELAH ANIMASI SELESAI
+    setTimeout(function () {
+
+        notification.remove();
+
+    }, 500);
+
+}
+
+</script>
+
+@endif
+
+@if(session('success'))
+
+<script>
+    setTimeout(function () {
+        const notification = document.getElementById('successNotification');
+
+        if (notification) {
+            notification.style.opacity = '0';
+            notification.style.transform = 'translate(-50%, -20px)';
+
+            setTimeout(function () {
+                notification.remove();
+            }, 500);
+        }
+    }, 5000);
+</script>
+
+@endif
+
 <div id="rowoboni-page">
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
@@ -61,12 +213,8 @@
                 Kecamatan Banyubiru, Kab. Semarang
             </span>
             <h2 class="font-display text-4xl md:text-5xl font-semibold text-[#0D3B4F] mb-5 leading-tight">Desa Wisata Rowoboni</h2>
-            <p class="text-[#5B7480] leading-relaxed">
-                Desa Rowoboni terletak di Kecamatan Banyubiru, Kabupaten Semarang, Jawa Tengah.
-                Dikelilingi oleh pemandangan alam yang asri dan budaya lokal yang kaya,
-                desa ini menawarkan pengalaman wisata yang autentik dan berkesan bagi setiap
-                pengunjung. Nikmati keindahan alam, keramahan warga, serta berbagai destinasi
-                wisata menarik yang siap menyambut Anda.
+            <p class="text-[#5B7480] leading-8">
+                {{ $setting->description ?? 'Deskripsi Desa Wisata Rowoboni belum tersedia.' }}
             </p>
             <div class="flex items-center gap-8 mt-8 pt-6 border-t border-[#E3EEEC]">
                 <div>
@@ -175,24 +323,32 @@
         </div>
 
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[140px] md:auto-rows-[170px]">
-            @forelse($galleries ?? [] as $foto)
-            <div class="group relative overflow-hidden rounded-2xl reveal {{ $loop->index % 5 == 0 ? 'col-span-2 row-span-2' : '' }}">
-                <img src="{{ asset('storage/' . $foto->image) }}"
-                     alt="Galeri"
-                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                <div class="absolute inset-0 bg-gradient-to-t from-[#0D3B4F]/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </div>
-            @empty
-            {{-- Placeholder sementara sebelum ada data galeri --}}
-            @for($i = 1; $i <= 6; $i++)
-            <div class="group relative overflow-hidden rounded-2xl reveal {{ $i == 1 ? 'col-span-2 row-span-2' : '' }}">
-                <img src="https://placehold.co/400x400/1C6E8C/EAF4F2?text=Foto+{{ $i }}"
-                     alt="Galeri {{ $i }}"
-                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                <div class="absolute inset-0 bg-gradient-to-t from-[#0D3B4F]/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </div>
-            @endfor
-            @endforelse
+            @forelse($galeri as $foto)
+
+    <div class="group relative overflow-hidden rounded-2xl reveal
+        {{ $loop->index % 5 == 0 ? 'col-span-2 row-span-2' : '' }}">
+
+        <img
+            src="{{ asset($foto->file_media) }}"
+            alt="Galeri Desa Rowoboni"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0D3B4F]/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        </div>
+
+    </div>
+
+@empty
+
+    <div class="col-span-2 md:col-span-4 py-12 text-center">
+
+        <p class="text-[#5B7480]">
+            Belum ada foto galeri.
+        </p>
+
+    </div>
+
+@endforelse
         </div>
     </div>
 </section>
