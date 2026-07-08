@@ -323,23 +323,20 @@ function tutupNotifikasi() {
         </div>
 
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[140px] md:auto-rows-[170px]">
-            @forelse($galeri as $foto)
-
-    <div class="group relative overflow-hidden rounded-2xl reveal
-        {{ $loop->index % 5 == 0 ? 'col-span-2 row-span-2' : '' }}">
-
+  @forelse($galeri ?? [] as $foto)
+    <div
+        class="gallery-item group relative overflow-hidden rounded-2xl reveal cursor-pointer {{ $loop->index % 5 == 0 ? 'col-span-2 row-span-2' : '' }}"
+        data-image="{{ asset($foto->file_media) }}"
+    >
         <img
             src="{{ asset($foto->file_media) }}"
-            alt="Galeri Desa Rowoboni"
-            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+            alt="Galeri Rowoboni"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        >
 
-        <div class="absolute inset-0 bg-gradient-to-t from-[#0D3B4F]/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        </div>
-
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0D3B4F]/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
     </div>
-
 @empty
-
     <div class="col-span-2 md:col-span-4 py-12 text-center">
 
         <p class="text-[#5B7480]">
@@ -352,6 +349,42 @@ function tutupNotifikasi() {
         </div>
     </div>
 </section>
+
+<div
+    id="galleryLightbox"
+    class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/90 backdrop-blur-sm"
+>
+    <button
+        id="closeLightbox"
+        type="button"
+        class="absolute top-5 right-5 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-3xl text-white transition hover:bg-white/20"
+    >
+        &times;
+    </button>
+
+    <button
+        id="prevImage"
+        type="button"
+        class="absolute left-4 md:left-10 z-20 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-3xl text-white transition hover:bg-white/20"
+    >
+        &#10094;
+    </button>
+
+    <img
+        id="lightboxImage"
+        src=""
+        alt="Galeri Rowoboni"
+        class="max-h-[85vh] max-w-[85vw] object-contain rounded-xl shadow-2xl transition-all duration-300"
+    >
+
+    <button
+        id="nextImage"
+        type="button"
+        class="absolute right-4 md:right-10 z-20 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-3xl text-white transition hover:bg-white/20"
+    >
+        &#10095;
+    </button>
+</div>
 
 </div>
 
@@ -375,6 +408,96 @@ function tutupNotifikasi() {
         reveals.forEach(function (el) { el.classList.add('is-visible'); });
     }
 })();
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const lightbox = document.getElementById('galleryLightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+
+    const closeButton = document.getElementById('closeLightbox');
+    const prevButton = document.getElementById('prevImage');
+    const nextButton = document.getElementById('nextImage');
+
+    let currentIndex = 0;
+
+    const images = Array.from(galleryItems).map(function (item) {
+        return item.dataset.image;
+    });
+
+    function showImage(index) {
+        currentIndex = index;
+
+        if (currentIndex < 0) {
+            currentIndex = images.length - 1;
+        }
+
+        if (currentIndex >= images.length) {
+            currentIndex = 0;
+        }
+
+        lightboxImage.src = images[currentIndex];
+    }
+
+    function openLightbox(index) {
+        showImage(index);
+
+        lightbox.classList.remove('hidden');
+        lightbox.classList.add('flex');
+
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        lightbox.classList.add('hidden');
+        lightbox.classList.remove('flex');
+
+        document.body.style.overflow = '';
+    }
+
+    galleryItems.forEach(function (item, index) {
+        item.addEventListener('click', function () {
+            openLightbox(index);
+        });
+    });
+
+    nextButton.addEventListener('click', function () {
+        showImage(currentIndex + 1);
+    });
+
+    prevButton.addEventListener('click', function () {
+        showImage(currentIndex - 1);
+    });
+
+    closeButton.addEventListener('click', closeLightbox);
+
+    lightbox.addEventListener('click', function (event) {
+        if (event.target === lightbox) {
+            closeLightbox();
+        }
+    });
+
+    document.addEventListener('keydown', function (event) {
+
+        if (lightbox.classList.contains('hidden')) {
+            return;
+        }
+
+        if (event.key === 'ArrowRight') {
+            showImage(currentIndex + 1);
+        }
+
+        if (event.key === 'ArrowLeft') {
+            showImage(currentIndex - 1);
+        }
+
+        if (event.key === 'Escape') {
+            closeLightbox();
+        }
+
+    });
+
+});
 </script>
 
 @endsection
