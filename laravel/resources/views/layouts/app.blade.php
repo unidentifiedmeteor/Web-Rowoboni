@@ -74,20 +74,24 @@
     </div>
 
     {{-- FOOTER --}}
-    <footer class="bg-[#F0F6F4] border-t border-[#CFE3DF]">
+    <footer class="bg-[#F0F6F4]">
         <div class="max-w-6xl mx-auto px-6 md:px-12 py-10 grid grid-cols-1 md:grid-cols-3 gap-8 text-sm text-[#16323D]">
 
             {{-- Kiri: Nama Desa --}}
             <span class="font-display font-semibold text-[#0D3B4F]">
                 {{ $setting->site_name ?? 'Desa Rowoboni' }}
             </span>
-            {{-- Tengah: Alamat --}}
-            
-           <span class="text-[#5B7480]">
-            {{ $setting->address ?? 'Alamat belum tersedia' }}
-            </span>
 
+            {{-- Tengah: Alamat --}}
+            <div class="flex items-start gap-2 text-[#5B7480]">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#1C6E8C] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span>{{ $setting->address ?? 'Alamat belum tersedia' }}</span>
+            </div>
             {{-- Kanan: Kontak --}}
+            
             <div>
                 <p class="font-display font-semibold text-[#0D3B4F] mb-2">Hubungi Kami</p>
                 <div class="space-y-1.5 text-[#5B7480]">
