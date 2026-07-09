@@ -89,9 +89,14 @@
             <!-- Tanggal -->
             <div class="grid grid-cols-3 items-center">
                 <label class="font-semibold text-[#0D3B4F]">Tanggal</label>
-                <div class="col-span-2 flex items-center gap-2">
-                    <span class="hidden md:inline text-[#8B9C9A]">:</span>
-                    <input type="date" name="tanggal_kunjungan" required class="w-full bg-[#F7FAF9] border border-[#E3EEEC] rounded-lg p-2.5 focus:outline-none focus:border-[#1C6E8C] transition">
+                <div class="col-span-2 flex flex-col gap-2">
+                    <div class="col-span-2 flex items-center gap-2">
+                        <span class="hidden md:inline text-[#8B9C9A]">:</span>
+                        <input type="date" name="tanggal_kunjungan" required class="w-full bg-[#F7FAF9] border border-[#E3EEEC] rounded-lg p-2.5 focus:outline-none focus:border-[#1C6E8C] transition">
+                    </div>
+                    @error('tanggal_kunjungan')
+                        <div class="text-red-500 text-sm mt-1 pl-4">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
 

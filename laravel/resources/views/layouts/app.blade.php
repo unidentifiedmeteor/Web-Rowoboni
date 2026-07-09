@@ -88,7 +88,11 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" />
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                <span>{{ $setting->address ?? 'Alamat belum tersedia' }}</span>
+
+                <div>
+                    <p class="font-display font-semibold text-[#0D3B4F] mb-2">Alamat</p>
+                    <span>{{ $setting->address ?? 'Alamat belum tersedia' }}</span>
+                </div>
             </div>
             {{-- Kanan: Kontak --}}
             

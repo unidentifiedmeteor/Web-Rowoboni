@@ -55,8 +55,12 @@ Route::post('/booking/store', function (Request $request) {
         'email' => 'required|email',
         'no_hp' => 'required',
         'jumlah_tiket' => 'required|integer|min:1',
-        'tanggal_kunjungan' => 'required|date'
-    ]);
+        'tanggal_kunjungan' => 'required|date|after_or_equal:today'
+    ],
+    [
+        'tanggal_kunjungan.after_or_equal' => 'Tanggal kunjungan tidak boleh sebelum hari ini.'
+    ]
+    );
 
     $wisata = Destination::findOrFail(
         $request->destination_id
