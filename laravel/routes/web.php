@@ -65,6 +65,16 @@ Route::post('/booking/store', function (Request $request) {
     $wisata = Destination::findOrFail(
         $request->destination_id
     );
+    
+    $existingBooking = Booking::where('email', $request->email)
+    ->where('destination_id', $wisata->id)
+    ->where('tanggal_kunjungan', $request->tanggal_kunjungan)
+    ->where('created_at', '>', now()->subSeconds(15))
+    ->first();
+
+    if ($existingBooking) {
+        return redirect('/booking/payment/' . $existingBooking->id_booking);
+    }
 
     $booking = Booking::create([
 
