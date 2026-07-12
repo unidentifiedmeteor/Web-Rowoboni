@@ -130,35 +130,16 @@
             <!-- Footer Sidebar -->
             <div>
 
-                <div class="border-t border-slate-700 px-6 py-4">
-
-                    <div class="flex items-center gap-3">
-
-                        <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center">
-
-                            <i class="fa-solid fa-user"></i>
-
-                        </div>
-
-                        <div>
-
-                            <h4 class="font-semibold">
-
-                                {{ session('admin_name') }}
-
-                            </h4>
-
-                            <p class="text-xs text-slate-400">
-
-                                Administrator
-
-                            </p>
-
-                        </div>
-
+                <a href="/admin/profile"
+                class="border-t border-slate-700 px-6 py-4 flex items-center gap-3 hover:bg-slate-800 transition">
+                    <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center">
+                        <i class="fa-solid fa-user"></i>
                     </div>
-
-                </div>
+                    <div>
+                        <h4 class="font-semibold">{{ session('admin_name') }}</h4>
+                        <p class="text-xs text-slate-400">Administrator</p>
+                    </div>
+                </a>
 
                 <div class="px-4 pb-4">
 

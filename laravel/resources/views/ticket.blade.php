@@ -206,12 +206,6 @@ table td{
 
 </table>
 
-<div class="qr">
-
-{!! QrCode::size(180)->generate($booking->ticket_code) !!}
-
-</div>
-
 <div class="footer">
 
 Tunjukkan QR Code ini kepada petugas saat memasuki area wisata.

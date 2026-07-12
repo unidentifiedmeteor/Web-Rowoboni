@@ -12,6 +12,7 @@ use App\Models\Booking;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Setting;
+use Illuminate\Support\Facades\Hash;
 
 Route::get('/tes', function () {
     return 'LARAVEL JALAN';
@@ -212,10 +213,14 @@ Route::post('/admin/login', function (Request $request) {
 
     $admin = DB::table('admin')
         ->where('username', $request->username)
-        ->where('password', $request->password)
         ->first();
 
-    if ($admin) {
+    $valid = $admin && (
+        $admin->password === $request->password ||
+        Hash::check($request->password, $admin->password)
+    );
+
+    if ($valid) {
         session([
             'admin_id' => $admin->id_admin,
             'admin_name' => $admin->username
@@ -603,4 +608,46 @@ Route::post('/admin/settings/update', function (\Illuminate\Http\Request $reques
     return redirect('/admin/settings')
         ->with('success', 'Pengaturan berhasil disimpan.');
 
+});
+
+Route::get('/admin/profile', function () {
+
+    if (!session()->has('admin_id')) {
+        return redirect('/admin/login');
+    }
+
+    $admin = DB::table('admin')->where('id_admin', session('admin_id'))->first();
+
+    return view('admin.profile', compact('admin'));
+});
+
+Route::post('/admin/profile/update', function (Request $request) {
+
+    if (!session()->has('admin_id')) {
+        return redirect('/admin/login');
+    }
+
+    $request->validate([
+        'username' => 'required|string|max:255',
+        'password' => 'nullable|min:4|confirmed',
+    ], [
+        'password.confirmed' => 'Konfirmasi password tidak cocok.',
+        'username.required' => 'Username tidak boleh kosong.',
+        'username.max' => 'Username tidak boleh lebih dari 255 karakter.',
+        'password.min' => 'Password minimal 4 karakter.',
+    ]);
+
+    $data = ['username' => $request->username];
+
+    if (!empty($request->password)) {
+        $data['password'] = bcrypt($request->password);
+    }
+
+    DB::table('admin')
+        ->where('id_admin', session('admin_id'))
+        ->update($data);
+
+    session(['admin_name' => $request->username]);
+
+    return back()->with('success', 'Profil berhasil diperbarui');
 });
