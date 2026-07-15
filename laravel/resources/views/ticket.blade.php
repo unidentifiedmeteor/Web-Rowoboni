@@ -208,7 +208,6 @@ table td{
 
 <div class="footer">
 
-Tunjukkan QR Code ini kepada petugas saat memasuki area wisata.
 
 </div>
 

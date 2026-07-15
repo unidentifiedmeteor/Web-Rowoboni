@@ -184,53 +184,202 @@ function tutupNotifikasi() {
 
 {{-- SECTION 1: PROFIL DESA --}}
 <section id="profil" class="relative py-20 md:py-28 px-6 bg-white overflow-hidden">
-    <div class="absolute -top-24 -left-24 w-72 h-72 bg-[#1C6E8C]/5 rounded-full blur-3xl" aria-hidden="true"></div>
-    <div class="absolute bottom-0 right-0 w-80 h-80 bg-[#4C7A3D]/5 rounded-full blur-3xl" aria-hidden="true"></div>
 
-    <div class="relative max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-16">
+    {{-- Background Decoration --}}
+    <div
+        class="absolute -top-24 -left-24 w-72 h-72 bg-[#1C6E8C]/5 rounded-full blur-3xl"
+        aria-hidden="true">
+    </div>
+
+    <div
+        class="absolute bottom-0 right-0 w-80 h-80 bg-[#4C7A3D]/5 rounded-full blur-3xl"
+        aria-hidden="true">
+    </div>
+
+
+    {{-- CONTAINER UTAMA --}}
+    <div class="relative max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-16">
+
+
+        {{-- ========================= --}}
+        {{-- BAGIAN KIRI : FOTO DESA --}}
+        {{-- ========================= --}}
+
         <div class="w-full md:w-2/5 reveal">
-            <div class="relative">
-                <div class="aspect-[4/5] overflow-hidden rounded-[63%_37%_41%_59%/50%_45%_55%_50%] shadow-xl shadow-[#0D3B4F]/10">
-                    <img src="https://placehold.co/480x600/dbeafe/93c5fd?text=Foto+Desa"
-                         alt="Foto Desa Rowoboni"
-                         class="w-full h-full object-cover">
+
+            <div class="relative max-w-[360px] mx-auto">
+
+                {{-- FOTO --}}
+                <div
+                    class="w-full aspect-[4/5] overflow-hidden shadow-xl shadow-[#0D3B4F]/10"
+                    style="border-radius: 63% 37% 41% 59% / 50% 45% 55% 50%;"
+                >
+
+                    @if(($galeri ?? collect())->isNotEmpty())
+
+                        @php
+                            $fotoProfil = $galeri->random();
+                        @endphp
+
+                        <img
+                            src="{{ asset($fotoProfil->file_media) }}"
+                            alt="Foto Desa Rowoboni"
+                            class="w-full h-full object-cover"
+                        >
+
+                    @else
+
+                        <img
+                            src="https://placehold.co/480x600/dbeafe/93c5fd?text=Foto+Desa"
+                            alt="Foto Desa Rowoboni"
+                            class="w-full h-full object-cover"
+                        >
+
+                    @endif
+
                 </div>
-                <div class="absolute -bottom-6 -right-4 md:-right-8 bg-white rounded-2xl shadow-lg px-5 py-3.5 border border-[#E3EEEC] flex items-center gap-2.5">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1C6E8C" stroke-width="2" stroke-linecap="round" class="flex-shrink-0">
+
+
+                {{-- BADGE TEPI RAWA PENING --}}
+                <div
+                    class="absolute -bottom-6 -right-4 md:-right-8
+                           bg-white rounded-2xl shadow-lg
+                           px-5 py-3.5
+                           border border-[#E3EEEC]
+                           flex items-center gap-2.5"
+                >
+
+                    <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#1C6E8C"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        class="flex-shrink-0"
+                    >
                         <path d="M2 17c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/>
                         <path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/>
                     </svg>
-                    <span class="text-xs font-semibold text-[#0D3B4F] whitespace-nowrap">Tepi Rawa Pening</span>
+
+                    <span class="text-xs font-semibold text-[#0D3B4F] whitespace-nowrap">
+                        Tepi Rawa Pening
+                    </span>
+
                 </div>
+
             </div>
+
         </div>
+
+
+        {{-- ============================= --}}
+        {{-- BAGIAN KANAN : INFORMASI DESA --}}
+        {{-- ============================= --}}
+
         <div class="w-full md:w-3/5 reveal">
-            <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0D3B4F] bg-[#E7F1EF] border border-[#CFE3DF] px-3 py-1 rounded-full mb-5 tracking-wide uppercase">
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+            {{-- LOCATION BADGE --}}
+            <span
+                class="inline-flex items-center gap-1.5
+                       text-xs font-semibold text-[#0D3B4F]
+                       bg-[#E7F1EF]
+                       border border-[#CFE3DF]
+                       px-3 py-1 rounded-full
+                       mb-5 tracking-wide uppercase"
+            >
+
+                <svg
+                    width="11"
+                    height="11"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
                     <circle cx="12" cy="12" r="3"/>
                     <circle cx="12" cy="12" r="8" stroke-opacity="0.5"/>
                 </svg>
-                Kecamatan Banyubiru, Kab. Semarang
-            </span>
-            <h2 class="font-display text-4xl md:text-5xl font-semibold text-[#0D3B4F] mb-5 leading-tight">Desa Wisata Rowoboni</h2>
-            <p class="text-[#5B7480] leading-8">
-                {{ $setting->description ?? 'Deskripsi Desa Wisata Rowoboni belum tersedia.' }}
-            </p>
-            <div class="flex items-center gap-8 mt-8 pt-6 border-t border-[#E3EEEC]">
-                <div>
-                    <div class="font-display text-3xl font-semibold text-[#0D3B4F]">{{ $destinations->count() }}+</div>
-                    <div class="text-xs text-[#6B7F80] mt-1">Destinasi wisata</div>
-                </div>
-                <div class="w-px h-10 bg-[#E3EEEC]"></div>
-                <div>
-                    <div class="font-display text-3xl font-semibold text-[#0D3B4F]">Rawa Pening</div>
-                    <div class="text-xs text-[#6B7F80] mt-1">Keindahan alam utama</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
+                Kecamatan Banyubiru, Kab. Semarang
+
+            </span>
+
+
+            {{-- JUDUL --}}
+            <h2
+                class="font-display
+                       text-4xl md:text-5xl
+                       font-semibold
+                       text-[#0D3B4F]
+                       mb-5 leading-tight"
+            >
+                Desa Wisata Rowoboni
+            </h2>
+
+
+            {{-- DESKRIPSI DARI ADMIN --}}
+            <p class="text-[#5B7480] leading-8">
+
+                {{ $setting->description ?? 'Deskripsi Desa Wisata Rowoboni belum tersedia.' }}
+
+            </p>
+
+
+            {{-- STATISTIK --}}
+            <div
+                class="flex items-center gap-8
+                       mt-8 pt-6
+                       border-t border-[#E3EEEC]"
+            >
+
+                {{-- JUMLAH DESTINASI --}}
+                <div>
+
+                    <div class="font-display text-3xl font-semibold text-[#0D3B4F]">
+
+                        {{ $destinations->count() }}+
+
+                    </div>
+
+                    <div class="text-xs text-[#6B7F80] mt-1">
+
+                        Destinasi wisata
+
+                    </div>
+
+                </div>
+
+
+                {{-- PEMBATAS --}}
+                <div class="w-px h-10 bg-[#E3EEEC]"></div>
+
+
+                {{-- RAWA PENING --}}
+                <div>
+
+                    <div class="font-display text-3xl font-semibold text-[#0D3B4F]">
+
+                        Rawa Pening
+
+                    </div>
+
+                    <div class="text-xs text-[#6B7F80] mt-1">
+
+                        Keindahan alam utama
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 <div class="bg-white" aria-hidden="true">
     <svg viewBox="0 0 1440 100" preserveAspectRatio="none" class="w-full h-14 md:h-20 block" xmlns="http://www.w3.org/2000/svg">
         <path d="M0,40 C240,90 480,0 720,35 C960,70 1200,15 1440,45 L1440,100 L0,100 Z" fill="#F0F6F4"></path>
